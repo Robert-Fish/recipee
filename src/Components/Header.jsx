@@ -31,15 +31,44 @@ const SubTitle = Styled.h3`
 position: absolute;
 left: 50%;
 text-shadow: 2px 2px 12px black;
-top: 30%;
+top: 28%;
 font-size: 3rem;
 transform: translate(-50%, -50%);
+`;
+
+const Categories = Styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  background: #95BF3E;
+`;
+
+const Category = Styled.div`
+color: #fff;
+margin: 0 1rem;
+padding: .4rem;
+cursor: pointer;
+transition: all ease-in-out .3s;
+
+&:hover{
+  background: #fff;
+  color: #95BF3E;
+}
 `;
 
 export default function Header() {
   return (
     <Container>
       <Title>Recipee</Title>
+      <Categories>
+        <Category>Beef</Category>
+        <Category>Chicken</Category>
+        <Category>Desert</Category>
+        <Category>Lamb</Category>
+        <Category>Misc.</Category>
+        <Category>Pasta</Category>
+        <Category>Pork</Category>
+      </Categories>
       <Icon className="fas fa-utensils fa-2x" />
       <SubTitle>What&apos;s on the menu today?</SubTitle>
       <SearchBar />

@@ -16,3 +16,14 @@ export const getRecipes = query => (dispatch) => {
     })
     .catch(err => console.log(err));
 };
+
+export const getRecipeByCategory = category => (dispatch) => {
+  axios
+    .get(
+      `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}
+    `,
+    )
+    .then((res) => {
+      console.log(res.data);
+    });
+};

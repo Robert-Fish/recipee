@@ -77,16 +77,23 @@ class Recipes extends Component {
   render() {
     const { recipes } = this.props;
     let RecipeItems;
-    if (recipes !== undefined) {
+    if (recipes !== null) {
       RecipeItems = recipes.map(recipe => (
         <Recipe key={recipe.idMeal}>
-          <h3>{recipe.strMeal}</h3>
-          <img src={recipe.strMealThumb === '' ? null : recipe.strMealThumb} alt="" />
-          <AreaLabel>{recipe.strArea}</AreaLabel>
+          <a
+            href={recipe.strSource}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: 'none', color: 'black' }}
+          >
+            <h3>{recipe.strMeal}</h3>
+            <img src={recipe.strMealThumb === '' ? null : recipe.strMealThumb} alt="" />
+            <AreaLabel>{recipe.strArea}</AreaLabel>
+          </a>
         </Recipe>
       ));
     } else {
-      RecipeItems = <NoRecipe>No Recipe Found</NoRecipe>;
+      RecipeItems = <NoRecipe>No Recipes Found</NoRecipe>;
     }
 
     return (
@@ -100,6 +107,7 @@ class Recipes extends Component {
 
 const mapStateToProps = state => ({
   recipes: state.recipes.recipeList,
+  reff: state.recipes.ref,
 });
 
 Recipes.propTypes = {

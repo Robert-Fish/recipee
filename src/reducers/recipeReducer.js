@@ -2,6 +2,7 @@ import { GET_RECIPES } from '../actions/types';
 
 const initalState = {
   recipeList: [],
+  ref: 'test',
 };
 
 export default function (state = initalState, action) {

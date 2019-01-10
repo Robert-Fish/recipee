@@ -2,35 +2,34 @@ import React, { Component } from 'react';
 import Styled from 'styled-components';
 import { connect } from 'react-redux';
 import { getRecipes } from '../actions/recipeActions';
-import { APP_KEY } from '../keys';
 
 const SearchBarInput = Styled.input`
-width: 30%;
-position: absolute;
-top: 40%;
-left: 50%;
-transform: translate(-50%, -50%);
+  width: 30%;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
-// Remove default styling
-outline: none;
-border: .3rem solid #fff;
-height: 2rem;
+  // Remove default styling
+  outline: none;
+  border: .3rem solid #fff;
+  height: 2rem;
 
 
-text-indent: 1rem;
-font-size: 1.3rem;
-padding: .3rem;
+  text-indent: 1rem;
+  font-size: 1.3rem;
+  padding: .3rem;
 
-&:hover{
+  &:hover{
 
-  transition: all ease-in-out .2s;
-  
-}
+    transition: all ease-in-out .2s;
+    
+  }
 
-&:focus{
-  font-weight: bold;
-}
-`;
+  &:focus{
+    font-weight: bold;
+  }
+  `;
 
 class SearchBar extends Component {
   constructor() {
@@ -44,15 +43,15 @@ class SearchBar extends Component {
     this.setState({
       [e.target.name]: e.target.value,
     });
-    this.props.getRecipes(this.state.searchValue);
   };
 
-  // onEnter = e => {
-  //   if (e.key === 'Enter') {
-  //     this.props.getRecipes(this.state.searchValue);
-  //   }
-  // };
+  onEnter = e => {
+    if (e.key === 'Enter') {
+      this.props.getRecipes(this.state.searchValue);
+    }
+  };
   render() {
+    console.log(this.props.reff);
     return (
       <SearchBarInput
         placeholder="Search a Recipe"
@@ -65,8 +64,11 @@ class SearchBar extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  reff: state.recipes.ref,
+});
 
 export default connect(
-  null,
+  mapStateToProps,
   { getRecipes },
 )(SearchBar);
