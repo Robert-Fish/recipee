@@ -1,14 +1,15 @@
 import React, { Component, Fragment } from 'react';
-import axios from 'axios';
 import Styled from 'styled-components';
-import { APP_ID, APP_KEY } from '../keys';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getRecipes } from '../actions/recipeActions';
 
 const Container = Styled.div`
 display: grid;
 grid-template-columns: 25% 25% 25% 25%;
 grid-template-rows: 1fr 1fr 1fr;
 grid-template-areas: ". . . ." ". . . ." ". . . .";
-grid-gap: .5rem;
+
 
 
 `;
@@ -17,14 +18,15 @@ const Recipe = Styled.div`
   background: #fff;
   user-select: none;
   cursor: pointer;
-  padding: 1rem;
+  margin: .4rem;
+
   h3{
     text-align: center;
     font-weight: 100;
     font-size: 2rem;
   }
   img{
-    width: 80%;
+    width: 50%;
     margin-left: auto;
     margin-right: auto;
     display: block;
@@ -54,40 +56,38 @@ text-align: center;
 font-size: 2.8rem;
 text-decoration: underline;
 
-`;
-export default class Recipes extends Component {
-  constructor() {
-    super();
-    this.state = {
-      recipes: [],
-    };
-  }
 
+`;
+
+const AreaLabel = Styled.h4`
+background: #95BF3E;
+color: #fff;
+text-align: center;
+font-size: 1.5rem;
+padding-top: 10%;
+padding-bottom: 10%;
+`;
+
+class Recipes extends Component {
   componentDidMount() {
-    axios
-      .get(`https://api.edamam.com/search?q=pork&app_id=${APP_ID}&app_key=${APP_KEY}&from=0&to=12`)
-      .then(res => this.setState({
-        recipes: res.data.hits,
-      }))
-      .catch(
-        this.setState({
-          recipes: null,
-        }),
-      );
+    const { getRecipes } = this.props;
+    getRecipes('beef');
   }
 
   render() {
-    const { recipes } = this.state;
-    if (recipes === null) {
-      return <NoRecipe>No Recipes Found</NoRecipe>;
+    const { recipes } = this.props;
+    let RecipeItems;
+    if (recipes !== undefined) {
+      RecipeItems = recipes.map(recipe => (
+        <Recipe key={recipe.idMeal}>
+          <h3>{recipe.strMeal}</h3>
+          <img src={recipe.strMealThumb === '' ? null : recipe.strMealThumb} alt="" />
+          <AreaLabel>{recipe.strArea}</AreaLabel>
+        </Recipe>
+      ));
+    } else {
+      RecipeItems = <NoRecipe>No Recipe Found</NoRecipe>;
     }
-
-    const RecipeItems = recipes.map(recipe => (
-      <Recipe key={recipe.recipe.label}>
-        <h3>{recipe.recipe.label}</h3>
-        <img src={recipe.recipe.image} alt="" />
-      </Recipe>
-    ));
 
     return (
       <Fragment>
@@ -97,3 +97,17 @@ export default class Recipes extends Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  recipes: state.recipes.recipeList,
+});
+
+Recipes.propTypes = {
+  getRecipes: PropTypes.func.isRequired,
+  recipes: PropTypes.instanceOf(Array).isRequired,
+};
+
+export default connect(
+  mapStateToProps,
+  { getRecipes },
+)(Recipes);

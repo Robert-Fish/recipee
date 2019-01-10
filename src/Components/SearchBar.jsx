@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Styled from 'styled-components';
+import { connect } from 'react-redux';
+import { getRecipes } from '../actions/recipeActions';
+import { APP_KEY } from '../keys';
 
 const SearchBarInput = Styled.input`
 width: 30%;
@@ -29,6 +32,41 @@ padding: .3rem;
 }
 `;
 
-export default function SearchBar() {
-  return <SearchBarInput placeholder="Search a Recipe" autoFocus />;
+class SearchBar extends Component {
+  constructor() {
+    super();
+    this.state = {
+      searchValue: '',
+    };
+  }
+
+  onChange = e => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+    this.props.getRecipes(this.state.searchValue);
+  };
+
+  // onEnter = e => {
+  //   if (e.key === 'Enter') {
+  //     this.props.getRecipes(this.state.searchValue);
+  //   }
+  // };
+  render() {
+    return (
+      <SearchBarInput
+        placeholder="Search a Recipe"
+        autoFocus
+        value={this.state.searchValue}
+        onKeyPress={this.onEnter}
+        onChange={this.onChange}
+        name="searchValue"
+      />
+    );
+  }
 }
+
+export default connect(
+  null,
+  { getRecipes },
+)(SearchBar);
