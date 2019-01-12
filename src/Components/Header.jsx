@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import Styled from "styled-components";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import SearchBar from "./SearchBar";
-import { getRecipeByCategory } from "../actions/recipeActions";
+import React, { Component } from 'react';
+import Styled from 'styled-components';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import SearchBar from './SearchBar';
+import { getRecipeByCategory } from '../actions/recipeActions';
 
 const HeaderImg = Styled.img`
   max-width: 100%;
@@ -64,27 +64,28 @@ class Header extends Component {
     super();
     this.state = {
       categories: [
-        "Beef",
-        "Chicken",
-        "Lamb",
-        "Pork",
-        "Seafood",
-        "Dessert",
-        "Miscellaneous.",
-        "Pasta",
-        "Side",
-        "Starter",
-        "Vegan",
-        "Vegetarian"
-      ]
+        'Beef',
+        'Chicken',
+        'Lamb',
+        'Pork',
+        'Seafood',
+        'Dessert',
+        'Miscellaneous.',
+        'Pasta',
+        'Side',
+        'Starter',
+        'Vegan',
+        'Vegetarian',
+      ],
     };
   }
 
-  handleClick = category => {
-    var label = document.getElementById("recipes");
+  handleClick = (category) => {
+    const label = document.getElementById('recipes');
     this.props.getRecipeByCategory(category);
-    label.scrollIntoView({ behavior: "smooth", block: "start" });
+    label.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
+
   render() {
     const { categories } = this.state;
 
@@ -107,9 +108,9 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  getRecipeByCategory: PropTypes.func.isRequired
+  getRecipeByCategory: PropTypes.func.isRequired,
 };
 export default connect(
   null,
-  { getRecipeByCategory }
+  { getRecipeByCategory },
 )(Header);

@@ -5,6 +5,7 @@ import Recipes from './Components/Recipes';
 import './index.css';
 
 import store from './store';
+// import Contact from './Components/Contact';
 
 export default function App() {
   return (
