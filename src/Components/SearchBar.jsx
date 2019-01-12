@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import Styled from 'styled-components';
-import { connect } from 'react-redux';
-import { getRecipes } from '../actions/recipeActions';
+import React, { Component } from "react";
+import Styled from "styled-components";
+import { connect } from "react-redux";
+import { getRecipes } from "../actions/recipeActions";
 
 const SearchBarInput = Styled.input`
   width: 30%;
@@ -35,22 +35,22 @@ class SearchBar extends Component {
   constructor() {
     super();
     this.state = {
-      searchValue: '',
+      searchValue: ""
     };
   }
 
   onChange = e => {
     this.setState({
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
   };
 
   onEnter = e => {
-    var element = document.getElementById('label');
+    var element = document.getElementById("recipes");
     console.log(element);
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       this.props.getRecipes(this.state.searchValue);
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
   render() {
@@ -68,10 +68,10 @@ class SearchBar extends Component {
   }
 }
 const mapStateToProps = state => ({
-  reff: state.recipes.ref,
+  reff: state.recipes.ref
 });
 
 export default connect(
   mapStateToProps,
-  { getRecipes },
+  { getRecipes }
 )(SearchBar);

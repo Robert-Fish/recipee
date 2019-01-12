@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from 'react';
-import Styled from 'styled-components';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { getRecipes } from '../actions/recipeActions';
+import React, { Component, Fragment } from "react";
+import Styled from "styled-components";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { getRecipes } from "../actions/recipeActions";
 
 const Container = Styled.div`
 display: grid;
@@ -72,7 +72,7 @@ padding-bottom: 14%;
 class Recipes extends Component {
   componentDidMount() {
     const { getRecipes } = this.props;
-    getRecipes('beef');
+    getRecipes("beef");
   }
 
   render() {
@@ -85,11 +85,16 @@ class Recipes extends Component {
             href={recipe.strSource}
             target="_blank"
             rel="noopener noreferrer"
-            style={{ textDecoration: 'none', color: 'black' }}
+            style={{ textDecoration: "none", color: "black" }}
           >
             <h3>{recipe.strMeal}</h3>
-            <img src={recipe.strMealThumb === '' ? null : recipe.strMealThumb} alt="" />
-            {recipe.strArea !== undefined ? <AreaLabel>{recipe.strArea}</AreaLabel> : null}
+            <img
+              src={recipe.strMealThumb === "" ? null : recipe.strMealThumb}
+              alt=""
+            />
+            {recipe.strArea !== undefined ? (
+              <AreaLabel>{recipe.strArea}</AreaLabel>
+            ) : null}
           </a>
         </Recipe>
       ));
@@ -99,8 +104,8 @@ class Recipes extends Component {
 
     return (
       <Fragment>
-        <TrendingRecipeLabel id="label">Trending Recipes</TrendingRecipeLabel>
-        <Container>{RecipeItems}</Container>
+        <TrendingRecipeLabel>Trending Recipes</TrendingRecipeLabel>
+        <Container id="recipes">{RecipeItems}</Container>
       </Fragment>
     );
   }
@@ -108,15 +113,15 @@ class Recipes extends Component {
 
 const mapStateToProps = state => ({
   recipes: state.recipes.recipeList,
-  reff: state.recipes.ref,
+  reff: state.recipes.ref
 });
 
 Recipes.propTypes = {
   getRecipes: PropTypes.func.isRequired,
-  recipes: PropTypes.instanceOf(Array).isRequired,
+  recipes: PropTypes.instanceOf(Array).isRequired
 };
 
 export default connect(
   mapStateToProps,
-  { getRecipes },
+  { getRecipes }
 )(Recipes);
