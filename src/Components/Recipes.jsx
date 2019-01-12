@@ -99,7 +99,7 @@ class Recipes extends Component {
 
     return (
       <Fragment>
-        <TrendingRecipeLabel>Trending Recipes</TrendingRecipeLabel>
+        <TrendingRecipeLabel id="label">Trending Recipes</TrendingRecipeLabel>
         <Container>{RecipeItems}</Container>
       </Fragment>
     );

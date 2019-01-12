@@ -80,12 +80,17 @@ class Header extends Component {
     };
   }
 
+  handleClick = category => {
+    var label = document.getElementById('label');
+    this.props.getRecipeByCategory(category);
+    label.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
   render() {
     const { categories } = this.state;
     const { getRecipeByCategory } = this.props;
 
     const categoryItem = categories.map(category => (
-      <Category key={category} onClick={() => getRecipeByCategory(category)}>
+      <Category key={category} onClick={() => this.handleClick(category)}>
         {category}
       </Category>
     ));

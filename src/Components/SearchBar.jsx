@@ -46,8 +46,11 @@ class SearchBar extends Component {
   };
 
   onEnter = e => {
+    var element = document.getElementById('label');
+    console.log(element);
     if (e.key === 'Enter') {
       this.props.getRecipes(this.state.searchValue);
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
   render() {
