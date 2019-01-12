@@ -1,2 +1,3 @@
 export const GET_RECIPES = 'GET_RECIPES';
 export const FETCH_REF = 'FETCH_REF';
+export const GET_RECIPE_BY_CATEGORY = 'GET_RECIPE_BY_CATEGORY';

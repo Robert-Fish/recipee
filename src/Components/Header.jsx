@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Styled from 'styled-components';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import SearchBar from './SearchBar';
+import { getRecipeByCategory } from '../actions/recipeActions';
 
 const HeaderImg = Styled.img`
   max-width: 100%;
@@ -56,23 +59,53 @@ transition: all ease-in-out .3s;
 }
 `;
 
-export default function Header() {
-  return (
-    <Container>
-      <Title>Recipee</Title>
-      <Categories>
-        <Category>Beef</Category>
-        <Category>Chicken</Category>
-        <Category>Desert</Category>
-        <Category>Lamb</Category>
-        <Category>Misc.</Category>
-        <Category>Pasta</Category>
-        <Category>Pork</Category>
-      </Categories>
-      <Icon className="fas fa-utensils fa-2x" />
-      <SubTitle>What&apos;s on the menu today?</SubTitle>
-      <SearchBar />
-      <HeaderImg src="https://images.pexels.com/photos/1565982/pexels-photo-1565982.jpeg?cs=srgb&dl=bread-color-cooking-1565982.jpg&fm=jpg" />
-    </Container>
-  );
+class Header extends Component {
+  constructor() {
+    super();
+    this.state = {
+      categories: [
+        'Beef',
+        'Chicken',
+        'Lamb',
+        'Pork',
+        'Seafood',
+        'Dessert',
+        'Miscellaneous.',
+        'Pasta',
+        'Side',
+        'Starter',
+        'Vegan',
+        'Vegetarian',
+      ],
+    };
+  }
+
+  render() {
+    const { categories } = this.state;
+    const { getRecipeByCategory } = this.props;
+
+    const categoryItem = categories.map(category => (
+      <Category key={category} onClick={() => getRecipeByCategory(category)}>
+        {category}
+      </Category>
+    ));
+    return (
+      <Container>
+        <Title>Recipee</Title>
+        <Categories>{categoryItem}</Categories>
+        <Icon className="fas fa-utensils fa-2x" />
+        <SubTitle>What&apos;s on the menu today?</SubTitle>
+        <SearchBar />
+        <HeaderImg src="https://images.pexels.com/photos/1268551/pexels-photo-1268551.jpeg?" />
+      </Container>
+    );
+  }
 }
+
+Header.propTypes = {
+  getRecipeByCategory: PropTypes.func.isRequired,
+};
+export default connect(
+  null,
+  { getRecipeByCategory },
+)(Header);

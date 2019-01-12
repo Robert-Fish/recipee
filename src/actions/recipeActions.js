@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_RECIPES } from './types';
+import { GET_RECIPES, GET_RECIPE_BY_CATEGORY } from './types';
 
 // registers user and pushes user to login page with react router withRouter
 export const getRecipes = query => (dispatch) => {
@@ -24,6 +24,9 @@ export const getRecipeByCategory = category => (dispatch) => {
     `,
     )
     .then((res) => {
-      console.log(res.data);
+      dispatch({
+        type: GET_RECIPE_BY_CATEGORY,
+        payload: res.data.meals,
+      });
     });
 };

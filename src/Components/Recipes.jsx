@@ -18,7 +18,7 @@ const Recipe = Styled.div`
   background: #fff;
   user-select: none;
   cursor: pointer;
-  margin: .4rem;
+  margin: .7rem;
 
   h3{
     text-align: center;
@@ -30,6 +30,7 @@ const Recipe = Styled.div`
     margin-left: auto;
     margin-right: auto;
     display: block;
+    margin-bottom: 5rem;
    
   
   }
@@ -65,7 +66,7 @@ color: #fff;
 text-align: center;
 font-size: 1.5rem;
 padding-top: 10%;
-padding-bottom: 10%;
+padding-bottom: 14%;
 `;
 
 class Recipes extends Component {
@@ -88,7 +89,7 @@ class Recipes extends Component {
           >
             <h3>{recipe.strMeal}</h3>
             <img src={recipe.strMealThumb === '' ? null : recipe.strMealThumb} alt="" />
-            <AreaLabel>{recipe.strArea}</AreaLabel>
+            {recipe.strArea !== undefined ? <AreaLabel>{recipe.strArea}</AreaLabel> : null}
           </a>
         </Recipe>
       ));
